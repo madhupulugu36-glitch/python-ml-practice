@@ -1,13 +1,3 @@
-name = "Madhu"
-course = "Python"
-city = "Hyderabad"
-
-print(name)
-print(course)
-print(city)
-
-print("-------------------")
-
 #Student Information
 student_name = "Rahul"
 student_age = 20
@@ -65,5 +55,44 @@ a = 100
 b = 300
 a, b = b, a
 
+print("a: ", a)
+print("b: ", b)
+
+print("-------------------")
+
+
+name = "Arun"
+age = 25
+city = "Chennai"
+print("Name: ", name)
+print("Age: ", age)
+print("City: ", city)
+
+print("-------------------")
+
+price = 500
+quantity = 4
+total = price * quantity
+print("Total: ", total)
+
+print("-------------------")
+
+length = 20
+width = 10
+area = length * width
+print("Area: ", area)
+
+print("-------------------")
+
+score = 50
+print("Old score: ", score)
+score = 85
+print("New score: ", score)
+
+print("-------------------")
+
+a = 10
+b = 20
+a, b = b, a
 print("a: ", a)
 print("b: ", b)
