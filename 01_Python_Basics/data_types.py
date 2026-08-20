@@ -45,3 +45,51 @@ print(type(student))
 result = None
 print("None value:", result)
 print(type(result))
+
+#Practice on List
+fruits = ["Apple", "Banana", "Grapes", "Mango"]
+print(fruits)
+print(fruits[0])
+print(fruits[-1])
+print(fruits[ :3])
+print(fruits[-3])
+print(fruits[::4])
+print(fruits[1:3])
+
+cities = ["New Delhi", "Hyderabad", "Bangalore", "Chennai", "Kolkata"]
+print(cities)
+print(cities[0])
+print(cities[-1])
+print(cities[4])
+print(cities[2:4])
+
+#Practice on Tuple
+colours = ("Red", "Green", "Blue", "Yellow")
+print(colours)
+print(colours[3])
+print(colours[-1])
+
+
+#Practice on Set
+numbers = {100, 200, 300, 200, 400, 400}
+print(numbers)
+print(type(numbers))
+
+# Practice on Dictionary
+
+product = {
+    "name": "Laptop",
+    "price": 55000,
+    "quantity": 2
+}
+
+print(product)
+
+print(product["name"])
+
+print(product["price"])
+
+print(product["quantity"])
+
+print(type(product))
+
