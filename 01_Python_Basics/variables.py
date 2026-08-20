@@ -96,3 +96,35 @@ b = 20
 a, b = b, a
 print("a: ", a)
 print("b: ", b)
+
+print("-------------------")
+
+name = input("Enter your name:")
+print("Hello", name)
+
+print("-------------------")
+
+number1 = int(input("Enter first number:"))
+number2 = int(input("Enter second number:"))
+addition = number1 + number2
+print("Addition:", addition)
+
+print("-------------------")
+
+age = int(input("Enter your age:"))
+next_year_age = age + 1
+print("Next year you will be:", next_year_age)
+
+print("-------------------")
+
+length = float(input("Enter length:"))
+width = float(input("Enter width:"))
+area = length * width
+print("Area:", area)
+
+print("-------------------")
+
+item_price = float(input("Enter item price:"))
+quantity = int(input("Enter quantity:"))
+total_cost = item_price * quantity
+print("Total bill:", round(total_cost, 2))
