@@ -1,4 +1,4 @@
-# if statement
+"""# if statement
 age1 = int(input("Enter your age1:"))
 if age1 >=18:
     print("Your eligible for voting:", age1)
@@ -66,3 +66,44 @@ match number:
         print("Tow or Three")
     case _:
         print("Other numbers")
+
+
+# Check Multiple Conditions with If Statement
+age6 = int(input("Enter your age6:"))
+if age6 >= 18:
+    print("You are an adult", age6)
+else:
+    print("You are a minor", age6)
+
+# Multiple Conditions in if Statement
+
+a = 7
+b = 9
+c = 3
+if a > b and a > c:
+    print(a, "is the largest")
+elif b > a and b > c:
+    print(b, "is the largest")
+elif c > a and c > b:
+    print(c, "is the largest")
+else:
+    print("All numbers are equal or there is a tie")
+
+#Using Nested if Conditions
+
+username = input("Enter username:")
+password = input("Enter password:")
+
+if username == "admin":
+    if password == "1234":
+        print("login successful.")
+    else:
+        print("Incorrect password.")
+else:
+    print("Unknown username.")"""
+
+#Using while Loop for Repeated Input
+password = ""
+while password != "python123":
+    password = input("Enter the password:")
+print("Access grantes!")
