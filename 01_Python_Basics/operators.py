@@ -80,3 +80,23 @@ print("Identity Operator (is):", a is student)
 print("Identity Operator (is not):", a is not student)
 
 print("-------------------")
+
+#Membership Operators
+
+a = "Python"
+b = "Java"
+c = "SQL"
+my_list = ["Python", "Java", "C++", "JavaScript"]
+
+if a not in my_list:
+    print("a is not present in given my_list:", a)
+else:
+    print("a is present in given my_list:", a)
+if b not in my_list:
+    print("b is not present in given my_list:", b)
+else:
+    print("b is present in given my_list:", b)
+if c not in my_list:
+    print("c is not present in given my_list:", c)
+else:
+    print("c is present in given my_list:", c)
