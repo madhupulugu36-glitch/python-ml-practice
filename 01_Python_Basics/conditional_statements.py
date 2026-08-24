@@ -1,4 +1,4 @@
-"""# if statement
+# if statement
 age1 = int(input("Enter your age1:"))
 if age1 >=18:
     print("Your eligible for voting:", age1)
@@ -100,7 +100,7 @@ if username == "admin":
     else:
         print("Incorrect password.")
 else:
-    print("Unknown username.")"""
+    print("Unknown username.")
 
 #Using while Loop for Repeated Input
 password = ""

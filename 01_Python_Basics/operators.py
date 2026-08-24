@@ -72,6 +72,12 @@ age = 18
 status = "Adult" if age >= 18 else "Not Adult"
 print("Status:", status)
 
+
+a = 10
+b = 20
+c = a if a < b else b
+print("minimum value:", c)
+
 print("-------------------")
 
 #Identity Operators

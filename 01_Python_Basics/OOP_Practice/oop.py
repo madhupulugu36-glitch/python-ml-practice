@@ -1,4 +1,4 @@
-'''class Mobile():
+class Mobile():
     def __init__(self,brand, battery, ram, camera, price):
         self.brand = brand
         self.battery = battery
@@ -18,9 +18,9 @@ obj2 = Mobile("oneplus", "6000mah", "8gb", "64mp", "55000")
 obj2.display()
 print("===================")
 obj3 = Mobile("nokia", "3000mah", "4gb", "32mp", "25000")
-obj3.display()'''
+obj3.display()
 
-'''class Laptop:
+class Laptop:
     def __init__(self, brand, ssd, g_card, price):
         self.brand = brand
         self.ssd = ssd
@@ -33,7 +33,7 @@ obj3.display()'''
         print("g_card:", self.g_card)
         print("price:", self.price)    
 obj = Laptop("MSI", "512gb", "8gb", 73000)
-obj.display()'''
+obj.display()
 
 class Bank:
     def __init__(self, credit, withdrawl, loan, invest):
