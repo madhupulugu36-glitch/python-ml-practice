@@ -1,4 +1,4 @@
-# Mothed overloading
+"""# Mothed overloading
 # same class
 # same function or method names
 # different parameters
@@ -25,4 +25,11 @@ class C(B):
         super().display()
 
 obj=C()
-obj.display()
+obj.display()"""
+
+def add(a, b):
+    print(a + b)
+add(1, 2)
+add("a", "b")
+add([1,2,3], [4,5,6])
+add((7,8,9), (10,11,12))
