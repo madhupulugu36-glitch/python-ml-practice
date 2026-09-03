@@ -1,4 +1,4 @@
-import numpy as np
+"""import numpy as np
 
 
 # ==========================================
@@ -302,4 +302,100 @@ print("\nA @ inverse(A):")
 print(A @ inverse_A)
 
 print("\nIdentity Matrix:")
-print(np.eye(2))
+print(np.eye(2))"""
+
+import numpy as np
+
+# ==========================================
+# 1. CREATE A MATRIX
+# ==========================================
+
+A = np.array([
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+
+])
+
+print("Matrix A:")
+print(A)
+
+# 2. SHAPE
+print("\nShape of A:")
+print(A.shape)
+
+# 3. DIMENSIONS
+print("\nDimensions of A:")
+print(A.ndim)
+
+# 4. NUMBER OF ELEMENTS
+print("\nNumber of elements:")
+print(A.size)
+
+# 5. ACCESS ELEMENTs
+print("\nElements row 2, column 3:")
+print(A[1, 2])
+
+# 6. MATRIX SUM
+print("\nSum of all elements:")
+print(A.sum())
+
+# 7. MAXIMUM AND MINIMUM
+print("\nMaximum element:")
+print(A.max())
+
+print("\nMinimum element:")
+print(A.min())
+
+
+# 8. MATRIX ADDITION
+
+A = np.array([
+    [10, 20],
+    [30, 40]
+])
+
+B = np.array([
+    [5, 15],
+    [25, 35]
+])
+
+print("\nMatrix A:")
+print(A)
+
+print("\nMatrix B:")
+print(B)
+
+print("\nA + B:")
+print(A + B)
+
+# 9. MATRIX SUBTRACTION
+
+A = np.array([
+    [1, 2, 3],
+    [4, 5, 6],
+])
+
+B = np.array([
+    [10, 20],
+    [40, 50],
+    [70, 80]
+])
+
+print("\nMatrix A:")
+print(A)
+
+print("\nMatrix B:")
+print(B)
+
+print("\nShape of A:")
+print(A.shape)
+
+print("\nShape of B:")
+print(B.shape)
+
+print("\nA @ B:")
+print(A @ B)
+
+print("\nResult shape:")
+print((A @ B).shape)
