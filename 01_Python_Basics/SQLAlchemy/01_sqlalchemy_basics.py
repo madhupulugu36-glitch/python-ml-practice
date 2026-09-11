@@ -17,7 +17,7 @@ with engine.connect() as connection:
     """))
     connection.commit()
 
-print("Students table created successfully!")   
+print("Students table created successfully!")
 
 # Insert student data into the Students table
 

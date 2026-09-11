@@ -1,0 +1,6 @@
+INSERT INTO emp (emp_id, emp_name, emp_sal)
+VALUES (
+    emp_id:int,
+    'emp_name:char',
+    'emp_sal:float'
+  );

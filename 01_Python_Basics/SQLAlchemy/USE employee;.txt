@@ -1,0 +1,14 @@
+USE employee;
+
+CREATE TABLE employees
+(
+    Name CHAR(15),
+    Role CHAR(15),
+    Exp INT(2),
+    Salary float(6,2)
+);
+
+SELECT * from employees;
+
+INSERT INTO employees(Name, Role, Exp, Salary)
+    values("Raju", "Developer", 4, 20000);
