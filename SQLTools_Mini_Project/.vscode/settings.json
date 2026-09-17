@@ -1,5 +1,4 @@
 {
-    "python-envs.defaultEnvManager": "ms-python.python:system",
     "sqltools.connections": [
         {
             "mysqlOptions": {
@@ -11,9 +10,10 @@
             "server": "localhost",
             "port": 3306,
             "driver": "MySQL",
-            "name": "MySQL Local",
+            "name": "Local MySQL",
+            "database": "mysql",
             "username": "root",
-            "database": "employee_management"
+            "askForPassword": true
         }
     ]
 }
