@@ -152,3 +152,10 @@ Madhu Pulugu
 
 This project was developed for learning and portfolio purposes. Dataset ownership and licensing remain with their respective owners.
 
+## Dashboard Screenshots
+
+### Dashboard Overview
+![Zomato Dashboard Overview](dashboard_overview.png)
+
+### Data Analysis and Visualizations
+![Zomato Dashboard Analysis](dashboard_analysis.png)
