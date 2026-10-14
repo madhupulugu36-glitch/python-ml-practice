@@ -17,7 +17,7 @@ st.set_page_config(
 # --------------------------------------------------
 @st.cache_data
 def load_data():
-    return pd.read_csv("zomato_cleaned.csv")
+    return pd.read_csv("02_Zomato_Restaurant_Project/zomato_cleaned.csv")
 
 
 df = load_data()
