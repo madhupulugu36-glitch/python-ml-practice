@@ -24,6 +24,7 @@ def load_data():
 df = load_data()
 
 st.title("🍽️ Zomato Restaurant Analysis Dashboard")
+
 st.write(
     "Explore restaurant ratings, votes, costs, cuisines, "
     "and online delivery."
@@ -64,6 +65,7 @@ df[cost_column] = pd.to_numeric(
 valid_costs = df[cost_column].dropna()
 
 if not valid_costs.empty:
+
     min_cost = float(valid_costs.min())
     max_cost = float(valid_costs.max())
 
@@ -73,6 +75,7 @@ if not valid_costs.empty:
         max_value=max_cost,
         value=(min_cost, max_cost)
     )
+
 else:
     selected_cost = None
     st.sidebar.warning("Cost data is unavailable.")
@@ -90,6 +93,7 @@ filtered_df = filtered_df[
 ]
 
 if selected_cost is not None:
+
     filtered_df = filtered_df[
         filtered_df[cost_column].between(
             selected_cost[0],
@@ -104,12 +108,14 @@ if selected_cost is not None:
 st.sidebar.subheader("🔎 Search Restaurant")
 
 if "Restaurant Name" in filtered_df.columns:
+
     search_name = st.sidebar.text_input(
         "Enter restaurant name",
         placeholder="e.g., Domino's Pizza"
     )
 
     if search_name.strip():
+
         filtered_df = filtered_df[
             filtered_df["Restaurant Name"]
             .astype(str)
@@ -119,15 +125,12 @@ if "Restaurant Name" in filtered_df.columns:
                 na=False
             )
         ]
+
 else:
     st.sidebar.info(
         "Restaurant Name column is not available."
     )
 
-
-# --------------------------------------------------
-# 4. KEY PERFORMANCE INDICATORS
-# --------------------------------------------------
 
 # --------------------------------------------------
 # 4. KEY PERFORMANCE INDICATORS
@@ -166,12 +169,15 @@ col3.metric(
 delivery_col = "Has Online delivery"
 
 if delivery_col in filtered_df.columns:
-    delivery_data = filtered_df[delivery_col].dropna()
+
+    delivery_data = filtered_df[
+        delivery_col
+    ].dropna()
+
     total_with_delivery_info = len(delivery_data)
 
-
-
     if total_with_delivery_info > 0:
+
         delivery_yes = (
             delivery_data.astype(str)
             .str.strip()
@@ -188,15 +194,18 @@ if delivery_col in filtered_df.columns:
             "Online Delivery",
             f"{delivery_percentage:.1f}%"
         )
+
     else:
         col4.metric("Online Delivery", "N/A")
+
 else:
     col4.metric("Online Delivery", "N/A")
 
 st.divider()
 
+
 # --------------------------------------------------
-# RATING DISTRIBUTION
+# 5. RATING DISTRIBUTION
 # --------------------------------------------------
 st.subheader("⭐ Restaurant Rating Distribution")
 
@@ -235,11 +244,13 @@ if not rating_df.empty:
     )
 
 else:
-    st.info("No rating data available for these filters.")
+    st.info(
+        "No rating data available for these filters."
+    )
 
 
 # --------------------------------------------------
-# RATING VS. COST ANALYSIS
+# 6. RATING VS. COST ANALYSIS
 # --------------------------------------------------
 st.subheader("💰 Restaurant Rating vs. Cost")
 
@@ -251,7 +262,9 @@ required_columns = [
     "Aggregate rating"
 ]
 
-cost_rating_df = filtered_df[required_columns].copy()
+cost_rating_df = filtered_df[
+    required_columns
+].copy()
 
 cost_rating_df = cost_rating_df.dropna()
 
@@ -305,14 +318,13 @@ else:
     )
 
 
-
-
 # --------------------------------------------------
-# 6. TOP 10 CUISINES
+# 7. TOP 10 CUISINES
 # --------------------------------------------------
 st.subheader("🍛 Top 10 Popular Cuisines")
 
 if not filtered_df.empty:
+
     cuisine_counts = (
         filtered_df["Cuisines"]
         .dropna()
@@ -324,7 +336,10 @@ if not filtered_df.empty:
         .reset_index()
     )
 
-    cuisine_counts.columns = ["Cuisine", "Restaurant Count"]
+    cuisine_counts.columns = [
+        "Cuisine",
+        "Restaurant Count"
+    ]
 
     fig = px.bar(
         cuisine_counts,
@@ -358,22 +373,29 @@ else:
 
 
 # --------------------------------------------------
-# ONLINE DELIVERY AVAILABILITY
+# 8. ONLINE DELIVERY AVAILABILITY
 # --------------------------------------------------
 st.subheader("🚚 Online Delivery Availability")
 
 if not filtered_df.empty:
+
     delivery_counts = (
         filtered_df["Has Online delivery"]
         .value_counts()
         .reset_index()
     )
 
-    delivery_counts.columns = ["Delivery Status", "Restaurant Count"]
+    delivery_counts.columns = [
+        "Delivery Status",
+        "Restaurant Count"
+    ]
 
     delivery_counts["Delivery Status"] = (
         delivery_counts["Delivery Status"]
-        .map({"Yes": "Available", "No": "Not Available"})
+        .map({
+            "Yes": "Available",
+            "No": "Not Available"
+        })
         .fillna(delivery_counts["Delivery Status"])
     )
 
@@ -408,11 +430,13 @@ else:
 
 
 # --------------------------------------------------
-# DOWNLOAD FILTERED DATA
+# 9. DOWNLOAD FILTERED DATA
 # --------------------------------------------------
 st.subheader("📥 Download Restaurant Data")
 
-csv_data = filtered_df.to_csv(index=False).encode("utf-8")
+csv_data = filtered_df.to_csv(
+    index=False
+).encode("utf-8")
 
 st.download_button(
     label="Download Filtered Data as CSV",
@@ -423,7 +447,7 @@ st.download_button(
 
 
 # --------------------------------------------------
-# DOWNLOAD ANALYSIS REPORT
+# 10. DOWNLOAD ANALYSIS REPORT
 # --------------------------------------------------
 st.subheader("📄 Download Analysis Report")
 
@@ -442,18 +466,25 @@ report_lines = [
 ]
 
 if "Has Online delivery" in filtered_df.columns:
-    delivery_data = filtered_df[
-        "Has Online delivery"
-    ].dropna().astype(str).str.strip().str.lower()
+
+    delivery_data = (
+        filtered_df["Has Online delivery"]
+        .dropna()
+        .astype(str)
+        .str.strip()
+        .str.lower()
+    )
 
     if not delivery_data.empty:
+
         delivery_percentage = (
             delivery_data.eq("yes").sum()
             / len(delivery_data)
         ) * 100
 
         report_lines.append(
-            f"Online Delivery Availability: {delivery_percentage:.1f}%"
+            f"Online Delivery Availability: "
+            f"{delivery_percentage:.1f}%"
         )
 
 report_lines.extend([
@@ -463,6 +494,7 @@ report_lines.extend([
 ])
 
 if not filtered_df.empty:
+
     report_df = filtered_df[
         filtered_df["Aggregate rating"] > 0
     ].sort_values(
@@ -471,17 +503,24 @@ if not filtered_df.empty:
     ).head(10)
 
     for _, row in report_df.iterrows():
+
         restaurant_name = row.get(
-            "Restaurant Name", "Unknown"
+            "Restaurant Name",
+            "Unknown"
         )
+
         rating = row["Aggregate rating"]
         votes = row["Votes"]
 
         report_lines.append(
-            f"{restaurant_name} | Rating: {rating} | Votes: {votes}"
+            f"{restaurant_name} | "
+            f"Rating: {rating} | Votes: {votes}"
         )
+
 else:
-    report_lines.append("No restaurants match the selected filters.")
+    report_lines.append(
+        "No restaurants match the selected filters."
+    )
 
 report_text = "\n".join(report_lines)
 
@@ -494,20 +533,25 @@ st.download_button(
 
 
 # --------------------------------------------------
-# TOP 10 RESTAURANTS
+# 11. TOP 10 RESTAURANTS
 # --------------------------------------------------
 st.subheader("🏆 Top 10 Restaurants")
 
 if not filtered_df.empty:
+
     ranking_df = filtered_df[
         filtered_df["Aggregate rating"] > 0
     ].copy()
 
     if not ranking_df.empty:
+
         ranking_df = ranking_df.sort_values(
             by=["Aggregate rating", "Votes"],
             ascending=[False, False]
         )
+
+        # Select Top 10 Restaurants
+        top_10 = ranking_df.head(10).copy()
 
         display_columns = [
             col for col in [
@@ -518,22 +562,63 @@ if not filtered_df.empty:
                 "Votes",
                 "Average Cost for two"
             ]
-            if col in ranking_df.columns
+            if col in top_10.columns
         ]
 
+        # Interactive Plotly Chart
+        fig = px.bar(
+            top_10,
+            x="Aggregate rating",
+            y="Restaurant Name",
+            orientation="h",
+            color="Aggregate rating",
+            hover_data={
+                "City": True,
+                "Cuisines": True,
+                "Aggregate rating": True,
+                "Votes": True,
+                "Average Cost for two": True
+            },
+            title="Top 10 Restaurants by Rating",
+            labels={
+                "Aggregate rating": "Restaurant Rating",
+                "Restaurant Name": "Restaurant"
+            }
+        )
+
+        fig.update_layout(
+            template="plotly_white",
+            height=500,
+            yaxis={
+                "categoryorder": "total ascending"
+            }
+        )
+
+        st.plotly_chart(
+            fig,
+            use_container_width=True
+        )
+
+        # Detailed Restaurant Table
         st.dataframe(
-            ranking_df[display_columns].head(10),
+            top_10[display_columns],
             width="stretch",
             hide_index=True
         )
+
     else:
-        st.info("No rated restaurants match your filters.")
+        st.info(
+            "No rated restaurants match your filters."
+        )
+
 else:
-    st.info("No restaurants match your filters.")
+    st.info(
+        "No restaurants match your filters."
+    )
 
 
 # --------------------------------------------------
-# 8. RESTAURANT DATA TABLE
+# 12. RESTAURANT DATA TABLE
 # --------------------------------------------------
 st.subheader("📋 Restaurant Data")
 
@@ -543,12 +628,14 @@ st.caption(
 )
 
 with st.expander("View Restaurant Data"):
+
     st.dataframe(
         filtered_df,
         width="stretch"
     )
 
+
 # --------------------------------------------------
-# 9. FOOTER
+# 13. FOOTER
 # --------------------------------------------------
 st.success("Dashboard loaded successfully!")
