@@ -1,4 +1,4 @@
-
+from pathlib import Path
 import pandas as pd
 import streamlit as st
 import matplotlib.pyplot as plt
@@ -18,7 +18,8 @@ st.set_page_config(
 # --------------------------------------------------
 @st.cache_data
 def load_data():
-    return pd.read_csv("zomato_cleaned.csv")
+    file_path = Path(__file__).resolve().parent / "zomato_cleaned.csv"
+    return pd.read_csv(file_path)
 
 
 df = load_data()
