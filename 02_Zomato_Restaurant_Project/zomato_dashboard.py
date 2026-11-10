@@ -2,6 +2,7 @@
 import pandas as pd
 import streamlit as st
 import matplotlib.pyplot as plt
+import plotly.express as px
 
 # --------------------------------------------------
 # 1. PAGE CONFIGURATION
@@ -168,6 +169,8 @@ if delivery_col in filtered_df.columns:
     delivery_data = filtered_df[delivery_col].dropna()
     total_with_delivery_info = len(delivery_data)
 
+
+
     if total_with_delivery_info > 0:
         delivery_yes = (
             delivery_data.astype(str)
@@ -193,27 +196,46 @@ else:
 st.divider()
 
 # --------------------------------------------------
-# 5. RATING DISTRIBUTION
+# RATING DISTRIBUTION
 # --------------------------------------------------
 st.subheader("⭐ Restaurant Rating Distribution")
 
-if not rated_df.empty:
-    fig, ax = plt.subplots(figsize=(9, 4))
+rating_df = filtered_df[
+    filtered_df["Aggregate rating"] > 0
+].copy()
 
-    rated_df["Aggregate rating"].hist(
-        bins=20,
-        ax=ax
+if not rating_df.empty:
+
+    fig = px.histogram(
+        rating_df,
+        x="Aggregate rating",
+        nbins=10,
+        title="Distribution of Restaurant Ratings",
+        labels={
+            "Aggregate rating": "Restaurant Rating",
+            "count": "Number of Restaurants"
+        }
     )
 
-    ax.set_xlabel("Restaurant Rating")
-    ax.set_ylabel("Number of Restaurants")
-    ax.set_title("Distribution of Restaurant Ratings")
+    fig.update_traces(
+        hovertemplate=
+        "Rating Range: %{x}<br>" +
+        "Number of Restaurants: %{y}" +
+        "<extra></extra>"
+    )
 
-    plt.tight_layout()
-    st.pyplot(fig)
-    plt.close(fig)
+    fig.update_layout(
+        template="plotly_white",
+        height=450
+    )
+
+    st.plotly_chart(
+        fig,
+        use_container_width=True
+    )
+
 else:
-    st.info("No rated restaurants match these filters.")
+    st.info("No rating data available for these filters.")
 
 
 # --------------------------------------------------
@@ -221,9 +243,17 @@ else:
 # --------------------------------------------------
 st.subheader("💰 Restaurant Rating vs. Cost")
 
-cost_rating_df = filtered_df[
-    ["Average Cost for two", "Aggregate rating"]
-].dropna()
+required_columns = [
+    "Restaurant Name",
+    "Locality",
+    "Average Cost for two",
+    "Currency",
+    "Aggregate rating"
+]
+
+cost_rating_df = filtered_df[required_columns].copy()
+
+cost_rating_df = cost_rating_df.dropna()
 
 cost_rating_df = cost_rating_df[
     (cost_rating_df["Aggregate rating"] > 0)
@@ -231,23 +261,50 @@ cost_rating_df = cost_rating_df[
 ]
 
 if not cost_rating_df.empty:
-    fig, ax = plt.subplots(figsize=(9, 5))
 
-    ax.scatter(
-        cost_rating_df["Average Cost for two"],
-        cost_rating_df["Aggregate rating"],
-        alpha=0.4
+    fig = px.scatter(
+        cost_rating_df,
+        x="Average Cost for two",
+        y="Aggregate rating",
+        hover_name="Restaurant Name",
+        custom_data=[
+            "Locality",
+            "Average Cost for two",
+            "Currency"
+        ],
+        title="Restaurant Rating vs. Average Cost",
+        labels={
+            "Average Cost for two": "Average Cost for Two",
+            "Aggregate rating": "Restaurant Rating"
+        }
     )
 
-    ax.set_xlabel("Average Cost for Two")
-    ax.set_ylabel("Restaurant Rating")
-    ax.set_title("Restaurant Rating vs. Average Cost")
+    fig.update_traces(
+        hovertemplate=
+        "<b>%{hovertext}</b><br>" +
+        "Area: %{customdata[0]}<br>" +
+        "Average Cost for Two: %{customdata[1]:,.0f} " +
+        "%{customdata[2]}<br>" +
+        "Rating: %{y}<br>" +
+        "<extra></extra>"
+    )
 
-    plt.tight_layout()
-    st.pyplot(fig)
-    plt.close(fig)
+    fig.update_layout(
+        template="plotly_white",
+        height=500
+    )
+
+    st.plotly_chart(
+        fig,
+        use_container_width=True
+    )
+
 else:
-    st.info("No cost and rating data available for these filters.")
+    st.info(
+        "No cost and rating data available for these filters."
+    )
+
+
 
 
 # --------------------------------------------------
@@ -264,27 +321,90 @@ if not filtered_df.empty:
         .str.strip()
         .value_counts()
         .head(10)
+        .reset_index()
     )
 
-    st.bar_chart(cuisine_counts)
+    cuisine_counts.columns = ["Cuisine", "Restaurant Count"]
+
+    fig = px.bar(
+        cuisine_counts,
+        x="Cuisine",
+        y="Restaurant Count",
+        title="Top 10 Popular Cuisines",
+        hover_data={
+            "Cuisine": True,
+            "Restaurant Count": True
+        },
+        labels={
+            "Cuisine": "Cuisine Type",
+            "Restaurant Count": "Number of Restaurants"
+        },
+        text="Restaurant Count"
+    )
+
+    fig.update_layout(
+        template="plotly_white",
+        height=500,
+        xaxis_tickangle=-45
+    )
+
+    st.plotly_chart(
+        fig,
+        use_container_width=True
+    )
+
 else:
     st.info("No restaurants match these filters.")
 
-# --------------------------------------------------
-# 7. ONLINE DELIVERY
-# --------------------------------------------------
-st.subheader("🛵 Online Delivery Availability")
 
-if "Has Online delivery" in filtered_df.columns:
+# --------------------------------------------------
+# ONLINE DELIVERY AVAILABILITY
+# --------------------------------------------------
+st.subheader("🚚 Online Delivery Availability")
+
+if not filtered_df.empty:
     delivery_counts = (
         filtered_df["Has Online delivery"]
-        .fillna("Unknown")
         .value_counts()
+        .reset_index()
     )
 
-    st.bar_chart(delivery_counts)
+    delivery_counts.columns = ["Delivery Status", "Restaurant Count"]
+
+    delivery_counts["Delivery Status"] = (
+        delivery_counts["Delivery Status"]
+        .map({"Yes": "Available", "No": "Not Available"})
+        .fillna(delivery_counts["Delivery Status"])
+    )
+
+    fig = px.bar(
+        delivery_counts,
+        x="Delivery Status",
+        y="Restaurant Count",
+        title="Online Delivery Availability",
+        text="Restaurant Count",
+        hover_data={
+            "Delivery Status": True,
+            "Restaurant Count": True
+        },
+        labels={
+            "Delivery Status": "Online Delivery",
+            "Restaurant Count": "Number of Restaurants"
+        }
+    )
+
+    fig.update_layout(
+        template="plotly_white",
+        height=400
+    )
+
+    st.plotly_chart(
+        fig,
+        use_container_width=True
+    )
+
 else:
-    st.info("Online delivery data is unavailable.")
+    st.info("No restaurants match these filters.")
 
 
 # --------------------------------------------------
