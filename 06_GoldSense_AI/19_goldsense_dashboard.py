@@ -1,4 +1,4 @@
-
+from pathlib import Path
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -15,7 +15,7 @@ st.set_page_config(
     layout="wide"
 )
 
-DATA_PATH = "data/gold_platinum_daily_comparison.csv"
+DATA_PATH = Path(__file__).resolve().parent / "data" / "gold_platinum_daily_comparison.csv"
 
 # ==========================================================
 # LOAD DATA
@@ -512,7 +512,7 @@ with tab3:
     scenario_df = pd.DataFrame(scenario_data)
 
     scenario_fig = px.line(
-        scenario_df,
+        scenario_df,ile
         x="Price Change (%)",
         y="Purchase Cost",
         markers=True,
