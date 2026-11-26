@@ -512,7 +512,7 @@ with tab3:
     scenario_df = pd.DataFrame(scenario_data)
 
     scenario_fig = px.line(
-        scenario_df,ile
+        scenario_df,
         x="Price Change (%)",
         y="Purchase Cost",
         markers=True,
