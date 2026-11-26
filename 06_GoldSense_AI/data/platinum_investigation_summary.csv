@@ -1,0 +1,17 @@
+Metric,Value
+Total historical records,106
+Unknown-origin records,80
+Other records,26
+Backup matches current dataset,True
+Unknown records with prices,80
+Unknown minimum price,45567.8
+Unknown maximum price,67367.0
+Unknown average price,58120.0025
+Unknown median price,58333.5
+Unknown price standard deviation,4963.106910704451
+Unknown values rounded to 100,3
+Unknown values rounded to 500,1
+Unknown values rounded to 1000,0
+Unusual daily movements in unknown records,1
+Daily percentage change upper threshold,18.794634123211136
+Daily percentage change lower threshold,-18.858141355227513
