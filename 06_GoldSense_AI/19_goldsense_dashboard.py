@@ -267,7 +267,7 @@ with tab1:
         height=550
     )
 
-    st.plotly_chart(trend_fig, use_container_width=True)
+    st.plotly_chart(trend_fig, width="stretch")
 
     st.markdown("### Selected Metal Price Movement")
 
@@ -286,7 +286,7 @@ with tab1:
         height=400
     )
 
-    st.plotly_chart(individual_fig, use_container_width=True)
+    st.plotly_chart(individual_fig, width="stretch")
 
 # ==========================================================
 # TAB 2 - MONTHLY ANALYSIS
@@ -314,7 +314,7 @@ with tab2:
         template="plotly_white"
     )
 
-    st.plotly_chart(gold_monthly_fig, use_container_width=True)
+    st.plotly_chart(gold_monthly_fig, width="stretch")
 
     platinum_monthly_fig = px.bar(
         monthly_data,
@@ -334,7 +334,7 @@ with tab2:
         template="plotly_white"
     )
 
-    st.plotly_chart(platinum_monthly_fig, use_container_width=True)
+    st.plotly_chart(platinum_monthly_fig, width="stretch")
 
     st.markdown("### Monthly Price & Stability Ranking")
 
@@ -358,7 +358,7 @@ with tab2:
 
     st.dataframe(
         display_monthly,
-        use_container_width=True,
+        width="stretch",
         hide_index=True
     )
 
@@ -437,7 +437,7 @@ with tab3:
         template="plotly_white"
     )
 
-    st.plotly_chart(cost_fig, use_container_width=True)
+    st.plotly_chart(cost_fig, width="stretch")
 
     st.markdown(
         f"""
@@ -524,7 +524,7 @@ with tab3:
         yaxis_title="Purchase Cost (₹)"
     )
 
-    st.plotly_chart(scenario_fig, use_container_width=True)
+    st.plotly_chart(scenario_fig, width="stretch")
 
 # ==========================================================
 # TAB 4 - PURCHASE STRATEGY
@@ -560,7 +560,7 @@ with tab4:
 
     st.dataframe(
         strategy_data,
-        use_container_width=True,
+        width="stretch",
         hide_index=True
     )
 
@@ -596,7 +596,7 @@ with tab5:
 
     st.dataframe(
         df,
-        use_container_width=True,
+        width="stretch",
         hide_index=True
     )
 
